@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veyn OS - Next-Gen Web Operating System</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #090d16;
+            --surface: rgba(30, 41, 59, 0.7);
+            --surface-solid: #1e293b;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --accent: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(24px);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; user-select: none; }
+        body { background: var(--bg-deep); color: var(--text-main); height: 100vh; width: 100vw; overflow: hidden; position: relative; }
+
+        /* Background Orbs */
+        .orb { position: absolute; width: 450px; height: 450px; border-radius: 50%; filter: blur(100px); z-index: 0; opacity: 0.35; animation: drift 12s ease-in-out infinite alternate; }
+        .orb-1 { background: #4f46e5; top: -100px; left: -100px; }
+        .orb-2 { background: #9333ea; bottom: -100px; right: -100px; animation-delay: -6s; }
+        @keyframes drift { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 40px) scale(1.15); } }
+
+        /* Screen Wrapper */
+        .screen-container { position: relative; z-index: 10; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+
+        /* Glass Cards */
+        .card { background: var(--surface); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border); border-radius: 28px; padding: 40px 32px; width: 100%; max-width: 440px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); animation: appear 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes appear { from { opacity: 0; transform: translateY(24px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+        .brand-header { text-align: center; margin-bottom: 32px; }
+        .brand-logo { width: 72px; height: 72px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 20px; display: inline-flex; justify-content: center; align-items: center; font-size: 32px; font-weight: 700; color: white; box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4); margin-bottom: 16px; }
+        h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+        p.sub { color: var(--text-muted); font-size: 14px; }
+
+        .field { margin-bottom: 20px; text-align: left; }
+        label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
+        input { width: 100%; padding: 14px 18px; background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border); border-radius: 14px; color: white; font-size: 15px; transition: all 0.3s ease; }
+        input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2); background: rgba(15, 23, 42, 0.95); }
+
+        .btn { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--primary), var(--accent)); border: none; border-radius: 14px; color: white; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 10px 25px rgba(99, 102, 241, 0.35); transition: all 0.3s ease; margin-top: 10px; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(99, 102, 241, 0.5); }
+        .btn:active { transform: translateY(0); }
+
+        .hidden { display: none !important; }
+
+        /* Desktop Environment */
+        #desktop-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; z-index: 20; background: transparent; }
+        .desktop-grid { flex: 1; padding: 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); grid-auto-rows: 90px; gap: 16px; align-content: start; }
+        .desktop-icon { display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 16px; cursor: pointer; transition: background 0.2s; padding: 8px; }
+        .desktop-icon:hover { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); }
+        .desktop-icon span { font-size: 36px; margin-bottom: 6px; }
+        .desktop-icon label { font-size: 12px; color: var(--text-main); text-align: center; font-weight: 500; cursor: pointer; }
+
+        /* Taskbar */
+        .taskbar { height: 64px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(25px); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 100; }
+        .taskbar-left, .taskbar-right { display: flex; align-items: center; gap: 12px; }
+        .tb-btn { width: 44px; height: 44px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 12px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 20px; transition: all 0.2s; }
+        .tb-btn:hover { background: rgba(99, 102, 241, 0.2); border-color: var(--primary); }
+        .clock { font-size: 14px; font-weight: 600; color: var(--text-muted); background: rgba(255, 255, 255, 0.04); padding: 8px 14px; border-radius: 10px; border: 1px solid var(--border); }
+
+        /* Windows */
+        .window { position: absolute; top: 10vh; left: 15vw; width: 600px; height: 400px; background: var(--surface-solid); border: 1px solid var(--border); border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.5); display: flex; flex-direction: column; overflow: hidden; z-index: 50; backdrop-filter: blur(20px); }
+        .window-header { height: 44px; background: rgba(15, 23, 42, 0.6); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--border); cursor: move; }
+        .window-title { font-size: 13px; font-weight: 600; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+        .window-controls { display: flex; gap: 8px; }
+        .win-dot { width: 12px; height: 12px; border-radius: 50%; cursor: pointer; }
+        .dot-close { background: #ef4444; }
+        .dot-min { background: #f59e0b; }
+        .dot-max { background: #10b981; }
+        .window-body { flex: 1; padding: 20px; overflow-y: auto; color: var(--text-main); font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <!-- SCREEN 1: LOGIN / SIGNUP -->
+    <div id="login-screen" class="screen-container">
+        <div class="card">
+            <div class="brand-header">
+                <div class="brand-logo">V</div>
+                <h1>Veyn OS</h1>
+                <p class="sub">Authenticate to access your workstation</p>
+            </div>
+            <form id="auth-form">
+                <div class="field">
+                    <label>Email Address</label>
+                    <input type="email" id="email-el" placeholder="commander@veyn.os" required>
+                </div>
+                <div class="field">
+                    <label>Security Password</label>
+                    <input type="password" id="pass-el" placeholder="••••••••••••" required>
+                </div>
+                <button type="submit" class="btn">Sign Up / Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: AGE VERIFICATION -->
+    <div id="age-screen" class="screen-container hidden">
+        <div class="card">
+            <div class="brand-header">
+                <div class="brand-logo">🛡️</div>
+                <h1>Age Verification</h1>
+                <p class="sub">Compliance gateway required for session activation</p>
+            </div>
+            <div class="field">
+                <label>Confirm Your Age</label>
+                <input type="number" id="age-el" placeholder="e.g. 21" min="1" max="120" required>
+            </div>
+            <button id="verify-btn" class="btn">Verify & Boot OS</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: PROFESSIONAL OS DESKTOP -->
+    <div id="desktop-screen" class="hidden">
+        <div class="desktop-grid">
+            <div class="desktop-icon" onclick="openApp('terminal')">
+                <span>💻</span>
+                <label>Terminal</label>
+            </div>
+            <div class="desktop-icon" onclick="openApp('files')">
+                <span>📁</span>
+                <label>File Explorer</label>
+            </div>
+            <div class="desktop-icon" onclick="openApp('settings')">
+                <span>⚙️</span>
+                <label>Settings</label>
+            </div>
+        </div>
+
+        <!-- Taskbar -->
+        <div class="taskbar">
+            <div class="taskbar-left">
+                <div class="tb-btn" title="Start Menu" onclick="alert('Veyn OS v2.0 - All Systems Operational')">🚀</div>
+                <div class="tb-btn" title="Terminal" onclick="openApp('terminal')">💻</div>
+                <div class="tb-btn" title="Files" onclick="openApp('files')">📁</div>
+            </div>
+            <div class="taskbar-right">
+                <div class="clock" id="live-clock">00:00 AM</div>
+                <div class="tb-btn" title="Lock Session" onclick="location.reload()">🔒</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Window Template -->
+    <div id="app-window" class="window hidden">
+        <div class="window-header" id="win-header">
+            <div class="window-title" id="win-title"><span>💻</span> Terminal</div>
+            <div class="window-controls">
+                <div class="win-dot dot-min"></div>
+                <div class="win-dot dot-max"></div>
+                <div class="win-dot dot-close" onclick="closeApp()"></div>
+            </div>
+        </div>
+        <div class="window-body" id="win-content">
+            Welcome to Veyn OS Terminal v2.0. Type commands below.
+        </div>
+    </div>
+
+    <script>
+        const loginScreen = document.getElementById('login-screen');
+        const ageScreen = document.getElementById('age-screen');
+        const desktopScreen = document.getElementById('desktop-screen');
+        const appWindow = document.getElementById('app-window');
+        const winTitle = document.getElementById('win-title');
+        const winContent = document.getElementById('win-content');
+
+        let currentUser = '';
+
+        // Authentication Flow
+        document.getElementById('auth-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            currentUser = document.getElementById('email-el').value;
+            if(currentUser) {
+                loginScreen.classList.add('hidden');
+                ageScreen.classList.remove('hidden');
+            }
+        });
+
+        // Age Verification Flow
+        document.getElementById('verify-btn').addEventListener('click', () => {
+            const ageVal = parseInt(document.getElementById('age-el').value);
+            if(isNaN(ageVal) || ageVal < 1) {
+                alert('Please provide a valid numeric age.');
+                return;
+            }
+            if(ageVal >= 18) {
+                ageScreen.classList.add('hidden');
+                desktopScreen.classList.remove('hidden');
+                startClock();
+            } else {
+                alert('Access Denied: You must be 18 or older to initialize Veyn OS.');
+            }
+        });
+
+        // Clock Function
+        function startClock() {
+            setInterval(() => {
+                const now = new Date();
+                document.getElementById('live-clock').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }, 1000);
+        }
+
+        // Window Manager Apps
+        function openApp(appName) {
+            appWindow.classList.remove('hidden');
+            if(appName === 'terminal') {
+                winTitle.innerHTML = '<span>💻</span> Terminal - root@veyn';
+                winContent.innerHTML = `<p>Veyn OS Kernel [Version 10.47.2]</p><p>Logged in as: <strong>${currentUser}</strong></p><br/><p>> System integrity verified.</p><p>> TWA bridge operational.</p>`;
+            } else if(appName === 'files') {
+                winTitle.innerHTML = '<span>📁</span> File Explorer';
+                winContent.innerHTML = `<h3>Storage Volumes</h3><br/><ul><li>/system/core</li><li>/home/${currentUser}/workspace</li><li>/mnt/sdcard/twa</li></ul>`;
+            } else if(appName === 'settings') {
+                winTitle.innerHTML = '<span>⚙️</span> System Settings';
+                winContent.innerHTML = `<h3>Veyn OS Control Panel</h3><br/><p><strong>MinSDK Version:</strong> 24</p><p><strong>Environment:</strong> Trusted Web Activity (TWA)</p><p><strong>Status:</strong> Active & Secure</p>`;
+            }
+        }
+
+        function closeApp() {
+            appWindow.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

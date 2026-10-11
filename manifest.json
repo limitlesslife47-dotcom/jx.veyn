@@ -1,0 +1,15 @@
+{
+  "name": "Veyn OS",
+  "short_name": "VeynOS",
+  "start_url": "/veyn/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e1b4b",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

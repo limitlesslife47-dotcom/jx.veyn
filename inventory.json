@@ -1,0 +1,34 @@
+{
+  "app_name": "Veyn",
+  "user": {
+    "name": "loki",
+    "current_status": "healthy"
+  },
+  "skincare": [
+    {"name": "Salicylic Acid Cleanser", "time": "Night", "trigger": "post-workout"},
+    {"name": "Daily Moisturizer", "time": "Morning and Night", "trigger": "always"}
+  ],
+  "supplements": [
+    {"name": "Vitamin D", "timing": "Morning with food", "purpose": "General health"}
+  ],
+  "wardrobe": [
+    {"id": 1, "item": "Beige oversized t-shirt", "type": "Top", "weather": "Warm", "style": "Casual"},
+    {"id": 2, "item": "Sky blue oversized t-shirt", "type": "Top", "weather": "Warm", "style": "Casual"},
+    {"id": 3, "item": "Bottle green oversized t-shirt", "type": "Top", "weather": "Warm", "style": "Casual"},
+    {"id": 4, "item": "Line patterned white and sky blue shirt", "type": "Top", "weather": "Any", "style": "Smart Casual"},
+    {"id": 5, "item": "White tissue t-shirt", "type": "Top", "weather": "Warm", "style": "Casual"},
+    {"id": 6, "item": "White and red flannel shirt", "type": "Top", "weather": "Cold", "style": "Casual"},
+    {"id": 7, "item": "Blue and white flannel shirt", "type": "Top", "weather": "Cold", "style": "Casual"},
+    {"id": 8, "item": "Plum shirt", "type": "Top", "weather": "Any", "style": "Smart Casual"},
+    {"id": 9, "item": "Black shirt", "type": "Top", "weather": "Any", "style": "Smart Casual"},
+    {"id": 10, "item": "Full navy suit", "type": "Set", "weather": "Any", "style": "Formal"},
+    {"id": 11, "item": "Black blazer", "type": "Outerwear", "weather": "Cold", "style": "Formal"},
+    {"id": 12, "item": "Red sweater", "type": "Top", "weather": "Cold", "style": "Casual"},
+    {"id": 13, "item": "Black track pants", "type": "Bottom", "weather": "Any", "style": "Athleisure"},
+    {"id": 14, "item": "Peacock green track pants", "type": "Bottom", "weather": "Any", "style": "Athleisure"},
+    {"id": 15, "item": "Beige linen pant", "type": "Bottom", "weather": "Warm", "style": "Smart Casual"},
+    {"id": 16, "item": "Blue denim baggy shirt", "type": "Top", "weather": "Any", "style": "Casual"},
+    {"id": 17, "item": "Light greenish linen pant", "type": "Bottom", "weather": "Warm", "style": "Smart Casual"},
+    {"id": 18, "item": "Black trousers", "type": "Bottom", "weather": "Any", "style": "Formal"}
+  ]
+}

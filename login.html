@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veyn - Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        /* Base Setup & Deep Dark Theme */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #030305; 
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Fluid 3D Mesh Background */
+        .ambient-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            overflow: hidden;
+            z-index: -2;
+            background: #000;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: float 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #4c1d95; animation-delay: 0s; }
+        .blob-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: #1e1b4b; animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: #312e81; animation-delay: -10s; }
+
+        /* Pro Glassmorphism Card */
+        .glass-card {
+            background: rgba(20, 20, 25, 0.4);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            border-right: 1px solid rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 28px;
+            padding: 45px 40px;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            animation: cardEnter 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Logo & Typography */
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #a78bfa, #6d28d9);
+            border-radius: 14px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
+            letter-spacing: -1px;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 500;
+            text-align: center;
+            margin: 0 0 30px 0;
+            letter-spacing: -0.5px;
+        }
+
+        /* Form Inputs */
+        .input-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 12px;
+            color: #a1a1aa;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: white;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: rgba(139, 92, 246, 0.6);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 15px rgba(109, 40, 217, 0.3);
+        }
+
+        .forgot-password {
+            font-size: 11px;
+            color: #a1a1aa;
+            text-align: right;
+            margin-top: 8px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .forgot-password:hover {
+            color: #d8b4fe;
+        }
+
+        /* Login Button */
+        .btn-primary {
+            background: #6d28d9;
+            color: white;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            margin-top: 25px;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, #8b5cf6, #3b82f6);
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(109, 40, 217, 0.5);
+        }
+        
+        .btn-primary:hover::before { opacity: 1; }
+
+        .signup-text {
+            font-size: 12px;
+            text-align: center;
+            color: #a1a1aa;
+            margin-top: 25px;
+        }
+
+        .signup-text span {
+            color: #d8b4fe;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(5%, 10%) scale(1.1); }
+            66% { transform: translate(-5%, 5%) scale(0.9); }
+            100% { transform: translate(0, -10%) scale(1.05); }
+        }
+
+        @keyframes cardEnter {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="glass-card">
+        <div class="logo">V</div>
+        <h1>Welcome Back, King</h1>
+
+        <div class="input-group">
+            <label>Email address</label>
+            <input type="email" placeholder="king@veynos.com">
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" placeholder="••••••••">
+            <div class="forgot-password">Forgot Password?</div>
+        </div>
+
+        <!-- This button links directly to your index.html dashboard -->
+        <button class="btn-primary" onclick="window.location.href='index.html'">Login</button>
+
+        <div class="signup-text">
+            Are you a New Member? <span>Sign UP</span>
+        </div>
+    </div>
+
+</body>
+</html>
