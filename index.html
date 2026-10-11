@@ -2,95 +2,109 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veyn OS - Elite Fitness & Routine Suite</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Veyn OS - Elite Life & Routine Architecture Suite</title>
     <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #05070d;
-            --glass-bg: rgba(18, 24, 38, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --glass-shine: rgba(255, 255, 255, 0.05);
-            --primary: #10b981;
-            --primary-glow: rgba(16, 185, 129, 0.35);
-            --accent: #6366f1;
-            --accent-glow: rgba(99, 102, 241, 0.35);
+            --bg-deep: #03050a;
+            --glass-bg: rgba(13, 18, 30, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shine: rgba(255, 255, 255, 0.04);
+            --primary: #00f2fe;
+            --primary-glow: rgba(0, 242, 254, 0.3);
+            --secondary: #4facfe;
+            --accent: #9b51e0;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --danger: #ef4444;
+            --danger: #ff4b4b;
+            --success: #00e676;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg-deep); color: var(--text-main); min-height: 100vh; overflow-x: hidden; position: relative; display: flex; justify-content: center; align-items: center; padding: 16px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+        body { background: var(--bg-deep); color: var(--text-main); min-height: 100vh; overflow-x: hidden; position: relative; display: flex; justify-content: center; align-items: center; padding: 12px; }
 
-        /* Liquid Glowing Mesh Background Orbs */
-        .mesh-orb { position: absolute; width: 400px; height: 400px; border-radius: 50%; filter: blur(120px); z-index: 0; opacity: 0.5; pointer-events: none; animation: floatMesh 12s ease-in-out infinite alternate; }
-        .orb-1 { background: #059669; top: -100px; left: -100px; }
-        .orb-2 { background: #4f46e5; bottom: -100px; right: -100px; animation-delay: -6s; }
-        @keyframes floatMesh { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, 40px) scale(1.15); } }
+        /* Advanced Ambient Mesh Background */
+        .mesh-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: 0; pointer-events: none; }
+        .mesh-orb { position: absolute; width: 500px; height: 500px; border-radius: 50%; filter: blur(140px); opacity: 0.4; animation: driftOrb 15s ease-in-out infinite alternate; }
+        .orb-1 { background: #00f2fe; top: -150px; left: -150px; }
+        .orb-2 { background: #9b51e0; bottom: -150px; right: -150px; animation-delay: -7s; }
+        @keyframes driftOrb { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 60px) scale(1.2); } }
 
-        /* Liquid Glass Container */
-        .container { position: relative; z-index: 10; width: 100%; max-width: 480px; }
-        .card { background: var(--glass-bg); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid var(--glass-border); border-radius: 28px; padding: 32px 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 var(--glass-shine); animation: scaleUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes scaleUp { from { opacity: 0; transform: translateY(20px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        /* Main Container & Glass Cards */
+        .container { position: relative; z-index: 10; width: 100%; max-width: 520px; }
+        .card { background: var(--glass-bg); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px); border: 1px solid var(--glass-border); border-radius: 32px; padding: 36px 28px; box-shadow: 0 35px 70px rgba(0,0,0,0.7), inset 0 1px 0 var(--glass-shine); animation: revealCard 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes revealCard { from { opacity: 0; transform: translateY(25px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-        /* Brand & Typography */
-        .brand { text-align: center; margin-bottom: 24px; }
-        .brand h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+        /* Typography & Header */
+        .brand { text-align: center; margin-bottom: 28px; }
+        .brand-icon { width: 68px; height: 68px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 20px; display: inline-flex; justify-content: center; align-items: center; box-shadow: 0 12px 30px var(--primary-glow); margin-bottom: 14px; }
+        .brand-icon svg { width: 34px; height: 34px; fill: #fff; }
+        .brand h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
         .brand p { font-size: 13px; color: var(--text-muted); }
 
-        /* Tabs */
-        .tabs { display: flex; background: rgba(15, 23, 42, 0.6); border-radius: 14px; padding: 4px; margin-bottom: 24px; border: 1px solid var(--glass-border); }
-        .tab { flex: 1; padding: 12px; text-align: center; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-radius: 10px; transition: all 0.3s ease; }
-        .tab.active { background: var(--primary); color: white; box-shadow: 0 4px 15px var(--primary-glow); }
+        /* Interactive Tabs */
+        .tabs { display: flex; background: rgba(10, 15, 25, 0.7); border-radius: 16px; padding: 5px; margin-bottom: 24px; border: 1px solid var(--glass-border); }
+        .tab { flex: 1; padding: 12px; text-align: center; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-radius: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .tab.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #03050a; font-weight: 700; box-shadow: 0 6px 20px var(--primary-glow); }
 
-        /* Inputs & Buttons */
-        .field { margin-bottom: 16px; text-align: left; }
-        label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
-        input, select { width: 100%; padding: 14px 16px; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--glass-border); border-radius: 14px; color: white; font-size: 14px; transition: all 0.3s ease; }
-        input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); background: rgba(15, 23, 42, 0.95); }
+        /* Form Inputs & Elements */
+        .field { margin-bottom: 18px; text-align: left; }
+        label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.3px; }
+        input, select { width: 100%; padding: 15px 18px; background: rgba(10, 15, 25, 0.85); border: 1px solid var(--glass-border); border-radius: 16px; color: white; font-size: 15px; transition: all 0.3s ease; }
+        input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); background: rgba(10, 15, 25, 0.98); }
         
-        .btn { width: 100%; padding: 15px; background: linear-gradient(135deg, var(--primary), #059669); border: none; border-radius: 14px; color: white; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 10px 25px var(--primary-glow); transition: all 0.3s ease; margin-top: 10px; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 15px 30px var(--primary-glow); }
+        .btn { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; border-radius: 16px; color: #03050a; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 12px 30px var(--primary-glow); transition: all 0.3s ease; margin-top: 10px; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 18px 40px var(--primary-glow); }
         .btn:active { transform: translateY(0); }
 
         .hidden { display: none !important; }
 
-        /* App Dashboard Layout */
-        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .nav-bar { display: flex; gap: 8px; margin-bottom: 20px; background: rgba(15, 23, 42, 0.6); padding: 6px; border-radius: 16px; border: 1px solid var(--glass-border); overflow-x: auto; }
-        .nav-item { flex: 1; padding: 10px 8px; text-align: center; font-size: 11px; font-weight: 600; color: var(--text-muted); background: transparent; border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
-        .nav-item.active { background: var(--accent); color: white; box-shadow: 0 4px 12px var(--accent-glow); }
+        /* Dashboard & Navigation Suite */
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+        .nav-bar { display: flex; gap: 8px; margin-bottom: 20px; background: rgba(10, 15, 25, 0.6); padding: 6px; border-radius: 18px; border: 1px solid var(--glass-border); overflow-x: auto; scrollbar-width: none; }
+        .nav-bar::-webkit-scrollbar { display: none; }
+        .nav-item { flex: 0 0 auto; display: flex; align-items: center; gap: 6px; padding: 10px 14px; font-size: 12px; font-weight: 600; color: var(--text-muted); background: transparent; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s; }
+        .nav-item svg { width: 16px; height: 16px; fill: currentColor; }
+        .nav-item.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #03050a; font-weight: 700; box-shadow: 0 4px 15px var(--primary-glow); }
 
-        .sub-section { animation: fadeIn 0.4s ease forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .sub-section { animation: fadeInSection 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInSection { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-        .stat-card { background: rgba(15, 23, 42, 0.5); border: 1px solid var(--glass-border); padding: 16px; border-radius: 16px; backdrop-filter: blur(10px); }
-        .stat-card h4 { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .stat-card p { font-size: 20px; font-weight: 700; color: var(--primary); }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+        .stat-card { background: rgba(10, 15, 25, 0.6); border: 1px solid var(--glass-border); padding: 18px; border-radius: 20px; backdrop-filter: blur(10px); }
+        .stat-card h4 { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
+        .stat-card p { font-size: 22px; font-weight: 800; color: var(--primary); }
 
-        .builder-box { background: rgba(15, 23, 42, 0.5); border: 1px solid var(--glass-border); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; background: rgba(255,255,255,0.03); border-radius: 10px; margin-bottom: 8px; font-size: 13px; border: 1px solid rgba(255,255,255,0.04); }
+        .module-box { background: rgba(10, 15, 25, 0.6); border: 1px solid var(--glass-border); border-radius: 20px; padding: 18px; margin-bottom: 16px; }
+        .module-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(255,255,255,0.03); border-radius: 14px; margin-bottom: 10px; font-size: 13px; border: 1px solid rgba(255,255,255,0.05); }
+        .module-item:last-child { margin-bottom: 0; }
+        
+        .dob-group { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="mesh-orb orb-1"></div>
-    <div class="mesh-orb orb-2"></div>
+    <div class="mesh-container">
+        <div class="mesh-orb orb-1"></div>
+        <div class="mesh-orb orb-2"></div>
+    </div>
 
     <div class="container">
         <!-- AUTH SECTION -->
         <div id="auth-card" class="card">
             <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
                 <h1>Veyn OS</h1>
-                <p>Elite Fitness, Diet & Routine Suite</p>
+                <p>Elite Life & Routine Architecture</p>
             </div>
 
             <div class="tabs">
-                <div id="tab-login" class="tab active" onclick="switchTab('login')">Login</div>
-                <div id="tab-signup" class="tab" onclick="switchTab('signup')">Sign Up</div>
+                <div id="tab-login" class="tab active" onclick="switchAuthTab('login')">Login</div>
+                <div id="tab-signup" class="tab" onclick="switchAuthTab('signup')">Sign Up</div>
             </div>
 
             <!-- Login Form -->
@@ -100,10 +114,10 @@
                     <input type="email" id="login-email" placeholder="commander@veyn.os" required>
                 </div>
                 <div class="field">
-                    <label>Password</label>
+                    <label>Security Password</label>
                     <input type="password" id="login-pass" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn">Access Workspace</button>
+                <button type="submit" class="btn">Initialize Workspace</button>
             </form>
 
             <!-- Sign Up Form -->
@@ -116,118 +130,163 @@
                     <label>Create Password</label>
                     <input type="password" id="signup-pass" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn">Continue to Verification</button>
+                <button type="submit" class="btn">Proceed to Verification</button>
             </form>
         </div>
 
-        <!-- AGE VERIFICATION SECTION -->
+        <!-- AGE VERIFICATION (DOB GATE) -->
         <div id="age-card" class="card hidden">
             <div class="brand">
-                <h1>Age Verification</h1>
-                <p>Security compliance required for routine builder</p>
+                <div class="brand-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                </div>
+                <h1>Date of Birth</h1>
+                <p>Security clearance requires age verification (12+)</p>
             </div>
             <div class="field">
-                <label>Confirm Your Age</label>
-                <input type="number" id="age-input" placeholder="e.g. 21" min="1" max="120" required>
+                <label>Select Date of Birth</label>
+                <div class="dob-group">
+                    <select id="dob-month" required>
+                        <option value="">Month</option>
+                        <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
+                        <option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option>
+                        <option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option>
+                        <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
+                    </select>
+                    <select id="dob-day" required>
+                        <option value="">Day</option>
+                        <!-- Days 1 to 31 populated via JS or static -->
+                    </select>
+                    <select id="dob-year" required>
+                        <option value="">Year</option>
+                    </select>
+                </div>
             </div>
-            <button id="verify-age-btn" class="btn">Verify & Launch App</button>
+            <button id="verify-dob-btn" class="btn">Verify & Boot Architecture</button>
         </div>
 
-        <!-- ELITE DASHBOARD SECTION -->
+        <!-- ELITE LIFESTYLE DASHBOARD -->
         <div id="dashboard-card" class="card hidden">
             <div class="dashboard-header">
                 <div>
-                    <h1 id="welcome-user" style="font-size:20px;">Athlete</h1>
-                    <p style="font-size:11px; color:var(--text-muted);">Veyn OS v3.5 Active</p>
+                    <h1 id="welcome-user" style="font-size: 22px;">Commander</h1>
+                    <p style="font-size: 11px; color: var(--primary); font-weight: 600;">Life Architecture Engine v4.0</p>
                 </div>
-                <button onclick="logout()" style="width:auto; padding:6px 12px; background:rgba(239,68,68,0.15); color:var(--danger); border:1px solid rgba(239,68,68,0.3); border-radius:10px; font-size:11px; font-weight:600; cursor:pointer;">Logout</button>
+                <button onclick="logout()" style="width: auto; padding: 8px 14px; background: rgba(255,75,75,0.15); color: var(--danger); border: 1px solid rgba(255,75,75,0.3); border-radius: 12px; font-size: 11px; font-weight: 700; cursor: pointer;">Lock OS</button>
             </div>
 
-            <!-- Navigation Tabs -->
+            <!-- Navigation Bar with SVG Icons -->
             <div class="nav-bar">
-                <button class="nav-item active" onclick="switchDashboardTab('overview')">📊 Overview</button>
-                <button class="nav-item" onclick="switchDashboardTab('workout')">🏋️ Workouts</button>
-                <button class="nav-item" onclick="switchDashboardTab('diet')">🥗 Diet Plans</button>
-                <button class="nav-item" onclick="switchDashboardTab('routine')">🗓️ Routines</button>
+                <button class="nav-item active" onclick="switchDashboardTab('overview')">
+                    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg> Overview
+                </button>
+                <button class="nav-item" onclick="switchDashboardTab('routine')">
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg> Routines
+                </button>
+                <button class="nav-item" onclick="switchDashboardTab('fitness')">
+                    <svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.86 3.86 7.29 5.29 2 10.57l1.43 1.43L8.86 6.5l8.57 8.57-1.43 1.43L17.43 19l1.86-1.86 1.43 1.43 1.43-1.43z"/></svg> Workout
+                </button>
+                <button class="nav-item" onclick="switchDashboardTab('diet')">
+                    <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg> Nutrition
+                </button>
             </div>
 
             <!-- TAB 1: OVERVIEW -->
             <div id="tab-overview" class="sub-section">
                 <div class="stat-grid">
                     <div class="stat-card">
-                        <h4>Calories Burned</h4>
-                        <p>2,450 kcal</p>
+                        <h4>Life Synergy</h4>
+                        <p>94.2%</p>
                     </div>
                     <div class="stat-card">
-                        <h4>Goal Progress</h4>
-                        <p>85%</p>
+                        <h4>Daily Focus</h4>
+                        <p>Execution</p>
                     </div>
                 </div>
-                <div class="builder-box">
-                    <label style="margin-bottom:8px;">Active Daily Status</label>
-                    <div class="list-item"><span>🔥 Metabolism Mode</span> <span style="color:var(--primary);">Optimal</span></div>
-                    <div class="list-item"><span>⚡ Hydration Level</span> <span style="color:#3b82f6;">3.2L / 4L</span></div>
+                <div class="module-box">
+                    <label style="margin-bottom:10px;">Core Life Pillars</label>
+                    <div class="module-item"><span>⚡ Mental Discipline</span> <span style="color:var(--success);">Optimized</span></div>
+                    <div class="module-item"><span>💧 Cellular Hydration</span> <span style="color:var(--primary);">3.5L / 4L</span></div>
+                    <div class="module-item"><span>🧠 Knowledge Intake</span> <span style="color:var(--secondary);">45 Mins</span></div>
                 </div>
             </div>
 
-            <!-- TAB 2: WORKOUT BUILDER -->
-            <div id="tab-workout" class="sub-section hidden">
-                <div class="builder-box">
-                    <label style="margin-bottom:8px;">Create Custom Workout</label>
+            <!-- TAB 2: ROUTINE BUILDER -->
+            <div id="tab-routine" class="sub-section hidden">
+                <div class="module-box">
+                    <label style="margin-bottom:10px;">Add Life Habit / Routine</label>
                     <div class="field" style="margin-bottom:10px;">
-                        <input type="text" id="workout-name" placeholder="e.g. Heavy Deadlift & Core">
+                        <input type="text" id="routine-input" placeholder="e.g. Deep Work Session & Core Reading">
                     </div>
-                    <button class="btn" style="margin-top:0; padding:10px;" onclick="addWorkout()">Add to Routine</button>
+                    <button class="btn" style="margin-top:0; padding:12px;" onclick="addRoutine()">Commit to Routine</button>
                 </div>
-                <div class="builder-box">
-                    <label style="margin-bottom:8px;">Your Workout List</label>
+                <div class="module-box">
+                    <label style="margin-bottom:10px;">Active Daily Schedule</label>
+                    <div id="routine-list">
+                        <div class="module-item"><span>06:00 AM - Fasted Cardio & Sunlight</span> <span style="color:var(--success);">Done</span></div>
+                        <div class="module-item"><span>02:00 PM - Deep Technical Execution</span> <span style="color:var(--primary);">Active</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: WORKOUT -->
+            <div id="tab-fitness" class="sub-section hidden">
+                <div class="module-box">
+                    <label style="margin-bottom:10px;">Custom Workout Builder</label>
+                    <div class="field" style="margin-bottom:10px;">
+                        <input type="text" id="workout-input" placeholder="e.g. Hypertrophy Pull & Core Circuit">
+                    </div>
+                    <button class="btn" style="margin-top:0; padding:12px;" onclick="addWorkout()">Add Exercise Protocol</button>
+                </div>
+                <div class="module-box">
+                    <label style="margin-bottom:10px;">Active Training Protocols</label>
                     <div id="workout-list">
-                        <div class="list-item"><span>💪 Upper Body Hypertrophy</span> <span>4 Sets</span></div>
-                        <div class="list-item"><span>🏃‍♂️ HIIT Sprint Conditioning</span> <span>20 Mins</span></div>
+                        <div class="module-item"><span>Upper Body Power Hypertrophy</span> <span style="color:var(--primary);">4 Sets</span></div>
+                        <div class="module-item"><span>HIIT Metabolic Conditioning</span> <span style="color:var(--secondary);">20 Mins</span></div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 3: DIET PLANNER -->
+            <!-- TAB 4: NUTRITION -->
             <div id="tab-diet" class="sub-section hidden">
-                <div class="builder-box">
-                    <label style="margin-bottom:8px;">Custom Nutrition Goal</label>
+                <div class="module-box">
+                    <label style="margin-bottom:10px;">Nutrition & Diet Strategy</label>
                     <div class="field" style="margin-bottom:10px;">
-                        <select id="diet-goal">
-                            <option>Muscle Gain (High Protein - 3,200 kcal)</option>
-                            <option>Lean Shred (Calorie Deficit - 2,000 kcal)</option>
-                            <option>Endurance Fuel (High Carb - 2,800 kcal)</option>
+                        <select id="diet-select">
+                            <option>Elite Lean Mass (3,200 kcal - High Protein)</option>
+                            <option>Shredded Cut (2,100 kcal - Low Carb)</option>
+                            <option>Cognitive Fuel (2,600 kcal - Clean Nutrients)</option>
                         </select>
                     </div>
-                    <button class="btn" style="margin-top:0; padding:10px;" onclick="saveDiet()">Apply Nutrition Plan</button>
+                    <button class="btn" style="margin-top:0; padding:12px;" onclick="updateDiet()">Deploy Diet Plan</button>
                 </div>
-                <div class="builder-box">
-                    <label style="margin-bottom:8px;">Current Active Plan</label>
-                    <p id="active-diet-display" style="font-size:13px; color:var(--primary); font-weight:600;">Muscle Gain (High Protein - 3,200 kcal)</p>
-                </div>
-            </div>
-
-            <!-- TAB 4: ROUTINE BUILDER -->
-            <div id="tab-routine" class="sub-section hidden">
-                <div class="builder-box">
-                    <label style="margin-bottom:8px;">Daily Schedule Builder</label>
-                    <div class="field" style="margin-bottom:10px;">
-                        <input type="text" id="routine-task" placeholder="e.g. Morning Stretch & Mobility">
-                    </div>
-                    <button class="btn" style="margin-top:0; padding:10px;" onclick="addRoutineTask()">Schedule Task</button>
-                </div>
-                <div class="builder-box">
-                    <label style="margin-bottom:8px;">Scheduled Tasks</label>
-                    <div id="routine-list">
-                        <div class="list-item"><span>🌅 06:00 AM - Fasted Cardio</span> <span style="color:var(--primary);">Active</span></div>
-                        <div class="list-item"><span>🌙 09:00 PM - Core Recovery</span> <span style="color:var(--text-muted);">Pending</span></div>
-                    </div>
+                <div class="module-box">
+                    <label style="margin-bottom:10px;">Active Protocol</label>
+                    <p id="active-diet-display" style="font-size: 14px; font-weight: 700; color: var(--primary);">Elite Lean Mass (3,200 kcal - High Protein)</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Populate DOB selectors dynamically
+        const daySelect = document.getElementById('dob-day');
+        for(let i=1; i<=31; i++) {
+            let opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = i;
+            daySelect.appendChild(opt);
+        }
+
+        const yearSelect = document.getElementById('dob-year');
+        const currentYear = new Date().getFullYear();
+        for(let y=currentYear; y>=currentYear-100; y--) {
+            let opt = document.createElement('option');
+            opt.value = y;
+            opt.textContent = y;
+            yearSelect.appendChild(opt);
+        }
+
         const authCard = document.getElementById('auth-card');
         const ageCard = document.getElementById('age-card');
         const dashboardCard = document.getElementById('dashboard-card');
@@ -239,7 +298,7 @@
 
         let userEmail = '';
 
-        function switchTab(mode) {
+        function switchAuthTab(mode) {
             if(mode === 'login') {
                 tabLogin.classList.add('active');
                 tabSignup.classList.remove('active');
@@ -268,70 +327,4 @@
             userEmail = document.getElementById('signup-email').value;
             if(userEmail) {
                 authCard.classList.add('hidden');
-                ageCard.classList.remove('hidden');
-            }
-        });
-
-        document.getElementById('verify-age-btn').addEventListener('click', () => {
-            const age = parseInt(document.getElementById('age-input').value);
-            if(isNaN(age) || age < 1) {
-                alert('Please enter a valid age.');
-                return;
-            }
-            if(age >= 18) {
-                ageCard.classList.add('hidden');
-                dashboardCard.classList.remove('hidden');
-                document.getElementById('welcome-user').textContent = userEmail.split('@')[0];
-            } else {
-                alert('Access restricted: You must be 18 or older.');
-            }
-        });
-
-        function switchDashboardTab(tabName) {
-            document.querySelectorAll('.sub-section').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-            event.target.classList.add('active');
-        }
-
-        function addWorkout() {
-            const name = document.getElementById('workout-name').value;
-            if(name) {
-                const list = document.getElementById('workout-list');
-                const item = document.createElement('div');
-                item.className = 'list-item';
-                item.innerHTML = `<span>💪 ${name}</span> <span style="color:var(--primary);">Custom</span>`;
-                list.appendChild(item);
-                document.getElementById('workout-name').value = '';
-            }
-        }
-
-        function saveDiet() {
-            const plan = document.getElementById('diet-goal').value;
-            document.getElementById('active-diet-display').textContent = plan;
-            alert('Diet nutrition plan updated successfully!');
-        }
-
-        function addRoutineTask() {
-            const task = document.getElementById('routine-task').value;
-            if(task) {
-                const list = document.getElementById('routine-list');
-                const item = document.createElement('div');
-                item.className = 'list-item';
-                item.innerHTML = `<span>🗓️ ${task}</span> <span style="color:var(--primary);">Scheduled</span>`;
-                list.appendChild(item);
-                document.getElementById('routine-task').value = '';
-            }
-        }
-
-        function logout() {
-            dashboardCard.classList.add('hidden');
-            authCard.classList.remove('hidden');
-            loginForm.reset();
-            signupForm.reset();
-            switchTab('login');
-        }
-    </script>
-</body>
-</html>
+                ageCard.cla
