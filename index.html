@@ -25,31 +25,26 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
         body { background: var(--bg-deep); color: var(--text-main); min-height: 100vh; overflow-x: hidden; position: relative; display: flex; justify-content: center; align-items: center; padding: 12px; }
 
-        /* Advanced Ambient Mesh Background */
         .mesh-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: 0; pointer-events: none; }
         .mesh-orb { position: absolute; width: 500px; height: 500px; border-radius: 50%; filter: blur(140px); opacity: 0.4; animation: driftOrb 15s ease-in-out infinite alternate; }
         .orb-1 { background: #00f2fe; top: -150px; left: -150px; }
         .orb-2 { background: #9b51e0; bottom: -150px; right: -150px; animation-delay: -7s; }
         @keyframes driftOrb { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 60px) scale(1.2); } }
 
-        /* Main Container & Glass Cards */
         .container { position: relative; z-index: 10; width: 100%; max-width: 520px; }
         .card { background: var(--glass-bg); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px); border: 1px solid var(--glass-border); border-radius: 32px; padding: 36px 28px; box-shadow: 0 35px 70px rgba(0,0,0,0.7), inset 0 1px 0 var(--glass-shine); animation: revealCard 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes revealCard { from { opacity: 0; transform: translateY(25px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
-        /* Typography & Header */
         .brand { text-align: center; margin-bottom: 28px; }
         .brand-icon { width: 68px; height: 68px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 20px; display: inline-flex; justify-content: center; align-items: center; box-shadow: 0 12px 30px var(--primary-glow); margin-bottom: 14px; }
         .brand-icon svg { width: 34px; height: 34px; fill: #fff; }
         .brand h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
         .brand p { font-size: 13px; color: var(--text-muted); }
 
-        /* Interactive Tabs */
         .tabs { display: flex; background: rgba(10, 15, 25, 0.7); border-radius: 16px; padding: 5px; margin-bottom: 24px; border: 1px solid var(--glass-border); }
         .tab { flex: 1; padding: 12px; text-align: center; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-radius: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .tab.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #03050a; font-weight: 700; box-shadow: 0 6px 20px var(--primary-glow); }
 
-        /* Form Inputs & Elements */
         .field { margin-bottom: 18px; text-align: left; }
         label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.3px; }
         input, select { width: 100%; padding: 15px 18px; background: rgba(10, 15, 25, 0.85); border: 1px solid var(--glass-border); border-radius: 16px; color: white; font-size: 15px; transition: all 0.3s ease; }
@@ -61,7 +56,6 @@
 
         .hidden { display: none !important; }
 
-        /* Dashboard & Navigation Suite */
         .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
         .nav-bar { display: flex; gap: 8px; margin-bottom: 20px; background: rgba(10, 15, 25, 0.6); padding: 6px; border-radius: 18px; border: 1px solid var(--glass-border); overflow-x: auto; scrollbar-width: none; }
         .nav-bar::-webkit-scrollbar { display: none; }
@@ -103,8 +97,8 @@
             </div>
 
             <div class="tabs">
-                <div id="tab-login" class="tab active" onclick="switchAuthTab('login')">Login</div>
-                <div id="tab-signup" class="tab" onclick="switchAuthTab('signup')">Sign Up</div>
+                <div id="tab-login" class="tab active">Login</div>
+                <div id="tab-signup" class="tab">Sign Up</div>
             </div>
 
             <!-- Login Form -->
@@ -155,14 +149,13 @@
                     </select>
                     <select id="dob-day" required>
                         <option value="">Day</option>
-                        <!-- Days 1 to 31 populated via JS or static -->
                     </select>
                     <select id="dob-year" required>
                         <option value="">Year</option>
                     </select>
                 </div>
             </div>
-            <button id="verify-dob-btn" class="btn">Verify & Boot Architecture</button>
+            <button id="verify-dob-btn" class="btn" type="button">Verify & Boot Architecture</button>
         </div>
 
         <!-- ELITE LIFESTYLE DASHBOARD -->
@@ -172,21 +165,20 @@
                     <h1 id="welcome-user" style="font-size: 22px;">Commander</h1>
                     <p style="font-size: 11px; color: var(--primary); font-weight: 600;">Life Architecture Engine v4.0</p>
                 </div>
-                <button onclick="logout()" style="width: auto; padding: 8px 14px; background: rgba(255,75,75,0.15); color: var(--danger); border: 1px solid rgba(255,75,75,0.3); border-radius: 12px; font-size: 11px; font-weight: 700; cursor: pointer;">Lock OS</button>
+                <button id="logout-btn" style="width: auto; padding: 8px 14px; background: rgba(255,75,75,0.15); color: var(--danger); border: 1px solid rgba(255,75,75,0.3); border-radius: 12px; font-size: 11px; font-weight: 700; cursor: pointer;" type="button">Lock OS</button>
             </div>
 
-            <!-- Navigation Bar with SVG Icons -->
             <div class="nav-bar">
-                <button class="nav-item active" onclick="switchDashboardTab('overview')">
+                <button class="nav-item active" data-tab="overview">
                     <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg> Overview
                 </button>
-                <button class="nav-item" onclick="switchDashboardTab('routine')">
+                <button class="nav-item" data-tab="routine">
                     <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg> Routines
                 </button>
-                <button class="nav-item" onclick="switchDashboardTab('fitness')">
+                <button class="nav-item" data-tab="fitness">
                     <svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.86 3.86 7.29 5.29 2 10.57l1.43 1.43L8.86 6.5l8.57 8.57-1.43 1.43L17.43 19l1.86-1.86 1.43 1.43 1.43-1.43z"/></svg> Workout
                 </button>
-                <button class="nav-item" onclick="switchDashboardTab('diet')">
+                <button class="nav-item" data-tab="diet">
                     <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg> Nutrition
                 </button>
             </div>
@@ -211,14 +203,14 @@
                 </div>
             </div>
 
-            <!-- TAB 2: ROUTINE BUILDER -->
+            <!-- TAB 2: ROUTINE -->
             <div id="tab-routine" class="sub-section hidden">
                 <div class="module-box">
                     <label style="margin-bottom:10px;">Add Life Habit / Routine</label>
                     <div class="field" style="margin-bottom:10px;">
                         <input type="text" id="routine-input" placeholder="e.g. Deep Work Session & Core Reading">
                     </div>
-                    <button class="btn" style="margin-top:0; padding:12px;" onclick="addRoutine()">Commit to Routine</button>
+                    <button class="btn" id="add-routine-btn" style="margin-top:0; padding:12px;" type="button">Commit to Routine</button>
                 </div>
                 <div class="module-box">
                     <label style="margin-bottom:10px;">Active Daily Schedule</label>
@@ -236,7 +228,7 @@
                     <div class="field" style="margin-bottom:10px;">
                         <input type="text" id="workout-input" placeholder="e.g. Hypertrophy Pull & Core Circuit">
                     </div>
-                    <button class="btn" style="margin-top:0; padding:12px;" onclick="addWorkout()">Add Exercise Protocol</button>
+                    <button class="btn" id="add-workout-btn" style="margin-top:0; padding:12px;" type="button">Add Exercise Protocol</button>
                 </div>
                 <div class="module-box">
                     <label style="margin-bottom:10px;">Active Training Protocols</label>
@@ -258,7 +250,7 @@
                             <option>Cognitive Fuel (2,600 kcal - Clean Nutrients)</option>
                         </select>
                     </div>
-                    <button class="btn" style="margin-top:0; padding:12px;" onclick="updateDiet()">Deploy Diet Plan</button>
+                    <button class="btn" id="update-diet-btn" style="margin-top:0; padding:12px;" type="button">Deploy Diet Plan</button>
                 </div>
                 <div class="module-box">
                     <label style="margin-bottom:10px;">Active Protocol</label>
@@ -269,62 +261,70 @@
     </div>
 
     <script>
-        // Populate DOB selectors dynamically
-        const daySelect = document.getElementById('dob-day');
-        for(let i=1; i<=31; i++) {
-            let opt = document.createElement('option');
-            opt.value = i;
-            opt.textContent = i;
-            daySelect.appendChild(opt);
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            // Populate DOB selectors
+            const daySelect = document.getElementById('dob-day');
+            for(let i=1; i<=31; i++) {
+                let opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i;
+                daySelect.appendChild(opt);
+            }
 
-        const yearSelect = document.getElementById('dob-year');
-        const currentYear = new Date().getFullYear();
-        for(let y=currentYear; y>=currentYear-100; y--) {
-            let opt = document.createElement('option');
-            opt.value = y;
-            opt.textContent = y;
-            yearSelect.appendChild(opt);
-        }
+            const yearSelect = document.getElementById('dob-year');
+            const currentYear = new Date().getFullYear();
+            for(let y=currentYear; y>=currentYear-100; y--) {
+                let opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = y;
+                yearSelect.appendChild(opt);
+            }
 
-        const authCard = document.getElementById('auth-card');
-        const ageCard = document.getElementById('age-card');
-        const dashboardCard = document.getElementById('dashboard-card');
-        
-        const loginForm = document.getElementById('login-form');
-        const signupForm = document.getElementById('signup-form');
-        const tabLogin = document.getElementById('tab-login');
-        const tabSignup = document.getElementById('tab-signup');
+            const authCard = document.getElementById('auth-card');
+            const ageCard = document.getElementById('age-card');
+            const dashboardCard = document.getElementById('dashboard-card');
+            
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const tabLogin = document.getElementById('tab-login');
+            const tabSignup = document.getElementById('tab-signup');
 
-        let userEmail = '';
+            let userEmail = '';
 
-        function switchAuthTab(mode) {
-            if(mode === 'login') {
+            // Tab Switching
+            tabLogin.addEventListener('click', () => {
                 tabLogin.classList.add('active');
                 tabSignup.classList.remove('active');
                 loginForm.classList.remove('hidden');
                 signupForm.classList.add('hidden');
-            } else {
+            });
+
+            tabSignup.addEventListener('click', () => {
                 tabSignup.classList.add('active');
                 tabLogin.classList.remove('active');
                 signupForm.classList.remove('hidden');
                 loginForm.classList.add('hidden');
-            }
-        }
+            });
 
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            userEmail = document.getElementById('login-email').value;
-            if(userEmail) {
-                authCard.classList.add('hidden');
-                dashboardCard.classList.remove('hidden');
-                document.getElementById('welcome-user').textContent = userEmail.split('@')[0];
-            }
-        });
+            // Login Handler
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                userEmail = document.getElementById('login-email').value;
+                if(userEmail) {
+                    authCard.classList.add('hidden');
+                    dashboardCard.classList.remove('hidden');
+                    document.getElementById('welcome-user').textContent = userEmail.split('@')[0];
+                }
+            });
 
-        signupForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            userEmail = document.getElementById('signup-email').value;
-            if(userEmail) {
-                authCard.classList.add('hidden');
-                ageCard.cla
+            // Signup Handler -> Triggers DOB Age Gate
+            signupForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                userEmail = document.getElementById('signup-email').value;
+                if(userEmail) {
+                    authCard.classList.add('hidden');
+                    ageCard.classList.remove('hidden');
+                }
+            });
+
+            // DOB Age Verification (12+)
