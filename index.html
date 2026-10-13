@@ -260,71 +260,7 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Populate DOB selectors
-            const daySelect = document.getElementById('dob-day');
-            for(let i=1; i<=31; i++) {
-                let opt = document.createElement('option');
-                opt.value = i;
-                opt.textContent = i;
-                daySelect.appendChild(opt);
-            }
-
-            const yearSelect = document.getElementById('dob-year');
-            const currentYear = new Date().getFullYear();
-            for(let y=currentYear; y>=currentYear-100; y--) {
-                let opt = document.createElement('option');
-                opt.value = y;
-                opt.textContent = y;
-                yearSelect.appendChild(opt);
-            }
-
-            const authCard = document.getElementById('auth-card');
-            const ageCard = document.getElementById('age-card');
-            const dashboardCard = document.getElementById('dashboard-card');
-            
-            const loginForm = document.getElementById('login-form');
-            const signupForm = document.getElementById('signup-form');
-            const tabLogin = document.getElementById('tab-login');
-            const tabSignup = document.getElementById('tab-signup');
-
-            let userEmail = '';
-
-            // Tab Switching
-            tabLogin.addEventListener('click', () => {
-                tabLogin.classList.add('active');
-                tabSignup.classList.remove('active');
-                loginForm.classList.remove('hidden');
-                signupForm.classList.add('hidden');
-            });
-
-            tabSignup.addEventListener('click', () => {
-                tabSignup.classList.add('active');
-                tabLogin.classList.remove('active');
-                signupForm.classList.remove('hidden');
-                loginForm.classList.add('hidden');
-            });
-
-            // Login Handler
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                userEmail = document.getElementById('login-email').value;
-                if(userEmail) {
-                    authCard.classList.add('hidden');
-                    dashboardCard.classList.remove('hidden');
-                    document.getElementById('welcome-user').textContent = userEmail.split('@')[0];
-                }
-            });
-
-            // Signup Handler -> Triggers DOB Age Gate
-            signupForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                userEmail = document.getElementById('signup-email').value;
-                if(userEmail) {
-                    authCard.classList.add('hidden');
-                    ageCard.classList.remove('hidden');
-                }
-            });
-
-            // DOB Age Verification (12+)
+    <!-- Linked Dedicated app.js -->
+    <script src="app.js"></script>
+</body>
+</html>
