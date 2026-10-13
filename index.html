@@ -3,264 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Veyn OS - Elite Life & Routine Architecture Suite</title>
+    <title>Veyn OS - Elite Fitness & Routine Suite</title>
     <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #03050a;
-            --glass-bg: rgba(13, 18, 30, 0.75);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-shine: rgba(255, 255, 255, 0.04);
-            --primary: #00f2fe;
-            --primary-glow: rgba(0, 242, 254, 0.3);
-            --secondary: #4facfe;
-            --accent: #9b51e0;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --danger: #ff4b4b;
+            --bg-color: #0b0b0b;
+            --surface: #141414;
+            --surface-card: #1c1c1e;
+            --accent-yellow: #ffe600;
+            --accent-hover: #e5cf00;
+            --text-main: #ffffff;
+            --text-muted: #8e8e93;
+            --border-subtle: rgba(255, 255, 255, 0.08);
             --success: #00e676;
+            --danger: #ff4b4b;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-        body { background: var(--bg-deep); color: var(--text-main); min-height: 100vh; overflow-x: hidden; position: relative; display: flex; justify-content: center; align-items: center; padding: 12px; }
+        body { background: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow-x: hidden; }
 
-        .mesh-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; overflow: hidden; z-index: 0; pointer-events: none; }
-        .mesh-orb { position: absolute; width: 500px; height: 500px; border-radius: 50%; filter: blur(140px); opacity: 0.4; animation: driftOrb 15s ease-in-out infinite alternate; }
-        .orb-1 { background: #00f2fe; top: -150px; left: -150px; }
-        .orb-2 { background: #9b51e0; bottom: -150px; right: -150px; animation-delay: -7s; }
-        @keyframes driftOrb { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 60px) scale(1.2); } }
+        .app-container { width: 100%; max-width: 430px; min-height: 100vh; background: var(--bg-color); display: flex; flex-direction: column; justify-content: space-between; padding: 24px 20px; position: relative; }
+        @media (min-width: 434px) {
+            .app-container { min-height: 900px; border-radius: 40px; border: 1px solid var(--border-subtle); box-shadow: 0 30px 60px rgba(0,0,0,0.95); margin: 20px 0; }
+        }
 
-        .container { position: relative; z-index: 10; width: 100%; max-width: 520px; }
-        .card { background: var(--glass-bg); backdrop-filter: blur(35px); -webkit-backdrop-filter: blur(35px); border: 1px solid var(--glass-border); border-radius: 32px; padding: 36px 28px; box-shadow: 0 35px 70px rgba(0,0,0,0.7), inset 0 1px 0 var(--glass-shine); animation: revealCard 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes revealCard { from { opacity: 0; transform: translateY(25px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        /* Navigation & Progress */
+        .header-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+        .back-btn { width: 40px; height: 40px; background: var(--surface-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; color: white; font-size: 18px; }
+        .progress-track { flex: 1; height: 4px; background: var(--surface-card); border-radius: 2px; margin-left: 14px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--accent-yellow); width: 15%; transition: width 0.4s ease; }
 
-        .brand { text-align: center; margin-bottom: 28px; }
-        .brand-icon { width: 68px; height: 68px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 20px; display: inline-flex; justify-content: center; align-items: center; box-shadow: 0 12px 30px var(--primary-glow); margin-bottom: 14px; }
-        .brand-icon svg { width: 34px; height: 34px; fill: #fff; }
-        .brand h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
-        .brand p { font-size: 13px; color: var(--text-muted); }
+        /* Typography */
+        .screen-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; color: var(--text-main); }
+        .screen-subtitle { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px; }
 
-        .tabs { display: flex; background: rgba(10, 15, 25, 0.7); border-radius: 16px; padding: 5px; margin-bottom: 24px; border: 1px solid var(--glass-border); }
-        .tab { flex: 1; padding: 12px; text-align: center; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-radius: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .tab.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #03050a; font-weight: 700; box-shadow: 0 6px 20px var(--primary-glow); }
+        /* Landing Screen */
+        .landing-hero { margin-top: auto; margin-bottom: auto; }
+        .brand-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--surface-card); padding: 6px 14px; border-radius: 12px; font-weight: 800; font-size: 13px; color: var(--accent-yellow); margin-bottom: 20px; }
+        .landing-title { font-size: 44px; font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px; }
+        .social-proof { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; font-size: 13px; color: var(--text-muted); }
+        .avatar-row { display: flex; }
+        .avatar-placeholder { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--bg-color); margin-left: -10px; background: #333; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: white; }
+        .avatar-row div:first-child { margin-left: 0; }
 
-        .field { margin-bottom: 18px; text-align: left; }
-        label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.3px; }
-        input, select { width: 100%; padding: 15px 18px; background: rgba(10, 15, 25, 0.85); border: 1px solid var(--glass-border); border-radius: 16px; color: white; font-size: 15px; transition: all 0.3s ease; }
-        input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-glow); background: rgba(10, 15, 25, 0.98); }
+        /* Cards & Inputs */
+        .select-card { background: var(--surface-card); border: 2px solid transparent; border-radius: 20px; padding: 18px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.2s; }
+        .select-card.selected { border-color: var(--accent-yellow); background: rgba(255, 230, 0, 0.05); }
+        .select-card-info h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .select-card-info p { font-size: 12px; color: var(--text-muted); }
+        .radio-circle { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--text-muted); display: flex; align-items: center; justify-content: center; }
+        .select-card.selected .radio-circle { background: var(--accent-yellow); border-color: var(--accent-yellow); color: #000; font-weight: 900; font-size: 12px; }
+
+        .input-box { width: 100%; background: transparent; border: none; border-bottom: 2px solid var(--text-muted); font-size: 28px; font-weight: 700; color: white; padding: 10px 0; margin: 20px 0; outline: none; transition: border-color 0.3s; }
+        .input-box:focus { border-color: var(--accent-yellow); }
+
+        .btn-primary { width: 100%; background: var(--accent-yellow); color: #0b0b0b; font-size: 16px; font-weight: 800; padding: 16px; border-radius: 30px; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(255, 230, 0, 0.2); transition: transform 0.2s; text-align: center; }
+        .btn-primary:active { transform: scale(0.98); }
+
+        /* Dashboard & Bottom Nav */
+        .dashboard-content { flex: 1; overflow-y: auto; padding-bottom: 80px; scrollbar-width: none; }
+        .dashboard-content::-webkit-scrollbar { display: none; }
         
-        .btn { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; border-radius: 16px; color: #03050a; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 12px 30px var(--primary-glow); transition: all 0.3s ease; margin-top: 10px; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 18px 40px var(--primary-glow); }
-        .btn:active { transform: translateY(0); }
+        .dash-card { background: var(--surface-card); border-radius: 24px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border-subtle); }
+        .macro-bar { width: 100%; height: 8px; background: #333; border-radius: 4px; overflow: hidden; margin-top: 6px; }
+        .macro-fill { height: 100%; background: var(--accent-yellow); border-radius: 4px; }
+
+        .bottom-nav { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(20, 20, 20, 0.95); backdrop-filter: blur(20px); border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-around; padding: 14px 20px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; z-index: 100; }
+        .nav-tab { background: none; border: none; color: var(--text-muted); font-size: 12px; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .nav-tab.active { color: var(--accent-yellow); }
+        .nav-tab svg { width: 20px; height: 20px; fill: currentColor; }
 
         .hidden { display: none !important; }
-
-        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
-        .nav-bar { display: flex; gap: 8px; margin-bottom: 20px; background: rgba(10, 15, 25, 0.6); padding: 6px; border-radius: 18px; border: 1px solid var(--glass-border); overflow-x: auto; scrollbar-width: none; }
-        .nav-bar::-webkit-scrollbar { display: none; }
-        .nav-item { flex: 0 0 auto; display: flex; align-items: center; gap: 6px; padding: 10px 14px; font-size: 12px; font-weight: 600; color: var(--text-muted); background: transparent; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s; }
-        .nav-item svg { width: 16px; height: 16px; fill: currentColor; }
-        .nav-item.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #03050a; font-weight: 700; box-shadow: 0 4px 15px var(--primary-glow); }
-
-        .sub-section { animation: fadeInSection 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes fadeInSection { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
-        .stat-card { background: rgba(10, 15, 25, 0.6); border: 1px solid var(--glass-border); padding: 18px; border-radius: 20px; backdrop-filter: blur(10px); }
-        .stat-card h4 { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
-        .stat-card p { font-size: 22px; font-weight: 800; color: var(--primary); }
-
-        .module-box { background: rgba(10, 15, 25, 0.6); border: 1px solid var(--glass-border); border-radius: 20px; padding: 18px; margin-bottom: 16px; }
-        .module-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: rgba(255,255,255,0.03); border-radius: 14px; margin-bottom: 10px; font-size: 13px; border: 1px solid rgba(255,255,255,0.05); }
-        .module-item:last-child { margin-bottom: 0; }
-        
-        .dob-group { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="mesh-container">
-        <div class="mesh-orb orb-1"></div>
-        <div class="mesh-orb orb-2"></div>
-    </div>
+    <div class="app-container" id="app">
 
-    <div class="container">
-        <!-- AUTH SECTION -->
-        <div id="auth-card" class="card">
-            <div class="brand">
-                <div class="brand-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                </div>
-                <h1>Veyn OS</h1>
-                <p>Elite Life & Routine Architecture</p>
-            </div>
-
-            <div class="tabs">
-                <div id="tab-login" class="tab active">Login</div>
-                <div id="tab-signup" class="tab">Sign Up</div>
-            </div>
-
-            <!-- Login Form -->
-            <form id="login-form">
-                <div class="field">
-                    <label>Email Address</label>
-                    <input type="email" id="login-email" placeholder="commander@veyn.os" required>
-                </div>
-                <div class="field">
-                    <label>Security Password</label>
-                    <input type="password" id="login-pass" placeholder="••••••••" required>
-                </div>
-                <button type="submit" class="btn">Initialize Workspace</button>
-            </form>
-
-            <!-- Sign Up Form -->
-            <form id="signup-form" class="hidden">
-                <div class="field">
-                    <label>Email Address</label>
-                    <input type="email" id="signup-email" placeholder="commander@veyn.os" required>
-                </div>
-                <div class="field">
-                    <label>Create Password</label>
-                    <input type="password" id="signup-pass" placeholder="••••••••" required>
-                </div>
-                <button type="submit" class="btn">Proceed to Verification</button>
-            </form>
-        </div>
-
-        <!-- AGE VERIFICATION (DOB GATE) -->
-        <div id="age-card" class="card hidden">
-            <div class="brand">
-                <div class="brand-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                </div>
-                <h1>Date of Birth</h1>
-                <p>Security clearance requires age verification (12+)</p>
-            </div>
-            <div class="field">
-                <label>Select Date of Birth</label>
-                <div class="dob-group">
-                    <select id="dob-month" required>
-                        <option value="">Month</option>
-                        <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
-                        <option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option>
-                        <option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option>
-                        <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
-                    </select>
-                    <select id="dob-day" required>
-                        <option value="">Day</option>
-                    </select>
-                    <select id="dob-year" required>
-                        <option value="">Year</option>
-                    </select>
-                </div>
-            </div>
-            <button id="verify-dob-btn" class="btn" type="button">Verify & Boot Architecture</button>
-        </div>
-
-        <!-- ELITE LIFESTYLE DASHBOARD -->
-        <div id="dashboard-card" class="card hidden">
-            <div class="dashboard-header">
-                <div>
-                    <h1 id="welcome-user" style="font-size: 22px;">Commander</h1>
-                    <p style="font-size: 11px; color: var(--primary); font-weight: 600;">Life Architecture Engine v4.0</p>
-                </div>
-                <button id="logout-btn" style="width: auto; padding: 8px 14px; background: rgba(255,75,75,0.15); color: var(--danger); border: 1px solid rgba(255,75,75,0.3); border-radius: 12px; font-size: 11px; font-weight: 700; cursor: pointer;" type="button">Lock OS</button>
-            </div>
-
-            <div class="nav-bar">
-                <button class="nav-item active" data-tab="overview">
-                    <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg> Overview
-                </button>
-                <button class="nav-item" data-tab="routine">
-                    <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg> Routines
-                </button>
-                <button class="nav-item" data-tab="fitness">
-                    <svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.86 3.86 7.29 5.29 2 10.57l1.43 1.43L8.86 6.5l8.57 8.57-1.43 1.43L17.43 19l1.86-1.86 1.43 1.43 1.43-1.43z"/></svg> Workout
-                </button>
-                <button class="nav-item" data-tab="diet">
-                    <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg> Nutrition
-                </button>
-            </div>
-
-            <!-- TAB 1: OVERVIEW -->
-            <div id="tab-overview" class="sub-section">
-                <div class="stat-grid">
-                    <div class="stat-card">
-                        <h4>Life Synergy</h4>
-                        <p>94.2%</p>
+        <!-- SCREEN 1: LANDING HERO[span_7](start_span)[span_7](end_span) -->
+        <div id="screen-landing" class="screen" style="display: flex; flex-direction: column; height: 100%;">
+            <div class="landing-hero">
+                <div class="brand-pill">VEYN OS ELITE SUITE</div>
+                <h1 class="landing-title">Track.<br>Train.<br>Transform.</h1>
+                <div class="social-proof">
+                    <div class="avatar-row">
+                        <div class="avatar-placeholder">U1</div>
+                        <div class="avatar-placeholder">U2</div>
+                        <div class="avatar-placeholder">U3</div>
+                        <div class="avatar-placeholder">+</div>
                     </div>
-                    <div class="stat-card">
-                        <h4>Daily Focus</h4>
-                        <p>Execution</p>
-                    </div>
-                </div>
-                <div class="module-box">
-                    <label style="margin-bottom:10px;">Core Life Pillars</label>
-                    <div class="module-item"><span>⚡ Mental Discipline</span> <span style="color:var(--success);">Optimized</span></div>
-                    <div class="module-item"><span>💧 Cellular Hydration</span> <span style="color:var(--primary);">3.5L / 4L</span></div>
-                    <div class="module-item"><span>🧠 Knowledge Intake</span> <span style="color:var(--secondary);">45 Mins</span></div>
+                    <span>20k+ actively training with Veyn.</span>
                 </div>
             </div>
-
-            <!-- TAB 2: ROUTINE -->
-            <div id="tab-routine" class="sub-section hidden">
-                <div class="module-box">
-                    <label style="margin-bottom:10px;">Add Life Habit / Routine</label>
-                    <div class="field" style="margin-bottom:10px;">
-                        <input type="text" id="routine-input" placeholder="e.g. Deep Work Session & Core Reading">
-                    </div>
-                    <button class="btn" id="add-routine-btn" style="margin-top:0; padding:12px;" type="button">Commit to Routine</button>
-                </div>
-                <div class="module-box">
-                    <label style="margin-bottom:10px;">Active Daily Schedule</label>
-                    <div id="routine-list">
-                        <div class="module-item"><span>06:00 AM - Fasted Cardio & Sunlight</span> <span style="color:var(--success);">Done</span></div>
-                        <div class="module-item"><span>02:00 PM - Deep Technical Execution</span> <span style="color:var(--primary);">Active</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 3: WORKOUT -->
-            <div id="tab-fitness" class="sub-section hidden">
-                <div class="module-box">
-                    <label style="margin-bottom:10px;">Custom Workout Builder</label>
-                    <div class="field" style="margin-bottom:10px;">
-                        <input type="text" id="workout-input" placeholder="e.g. Hypertrophy Pull & Core Circuit">
-                    </div>
-                    <button class="btn" id="add-workout-btn" style="margin-top:0; padding:12px;" type="button">Add Exercise Protocol</button>
-                </div>
-                <div class="module-box">
-                    <label style="margin-bottom:10px;">Active Training Protocols</label>
-                    <div id="workout-list">
-                        <div class="module-item"><span>Upper Body Power Hypertrophy</span> <span style="color:var(--primary);">4 Sets</span></div>
-                        <div class="module-item"><span>HIIT Metabolic Conditioning</span> <span style="color:var(--secondary);">20 Mins</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 4: NUTRITION -->
-            <div id="tab-diet" class="sub-section hidden">
-                <div class="module-box">
-                    <label style="margin-bottom:10px;">Nutrition & Diet Strategy</label>
-                    <div class="field" style="margin-bottom:10px;">
-                        <select id="diet-select">
-                            <option>Elite Lean Mass (3,200 kcal - High Protein)</option>
-                            <option>Shredded Cut (2,100 kcal - Low Carb)</option>
-                            <option>Cognitive Fuel (2,600 kcal - Clean Nutrients)</option>
-                        </select>
-                    </div>
-                    <button class="btn" id="update-diet-btn" style="margin-top:0; padding:12px;" type="button">Deploy Diet Plan</button>
-                </div>
-                <div class="module-box">
-                    <label style="margin-bottom:10px;">Active Protocol</label>
-                    <p id="active-diet-display" style="font-size: 14px; font-weight: 700; color: var(--primary);">Elite Lean Mass (3,200 kcal - High Protein)</p>
+            <div>
+                <button class="btn-primary" onclick="goToScreen('screen-name')">Get Started</button>
+                <div style="text-align: center; margin-top: 14px; font-size: 13px; color: var(--text-muted);">
+                    Already a member? <span style="color: white; font-weight: 700; cursor: pointer;" onclick="goToScreen('screen-dashboard')">Sign in</span>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Linked Dedicated app.js -->
-    <script src="app.js"></script>
-</body>
-</html>
+        <!-- SCREEN 2: NAME SETUP[span_8](start_span)[span_8](end_span) -->
+        <div id="screen-name" class="screen hidden">
+            <div>
+                <div class="header-nav">
+                    <button class="back-btn" onclick="goToScreen('screen-landing')">←</button>
+                    <div class="progress-track"><div class="progress-fill" style="width: 15%;"></div></div>
+                </div>
+                <h2 class="screen-title">What should we call you?</h2>
+                <p class="screen-subtitle">Just so we know who we're talking to.</p>
+                <input type="text" id="user-name-input" class="input-box" placeholder="Jonathan">
+            </div>
+            <button class="btn-primary" onclick="saveName()">Continue</button>
+        </div>
+
+        <!-- SCREEN 3: GENDER[span_9](start_span)[span_9](end_span) -->
+        <div id="screen-gender" class="screen hidden">
+            <div>
+                <div class="header-nav">
+                    <button class="back-btn" onclick="goToScreen('screen-name')">←</button>
+                    <div class="progress-track"><div class="progress-fill" style="width: 30%;"></div></div>
+                </div>
+                <h2 class="screen-title">What's your gender?</h2>
+                <p class="screen-subtitle">This helps us set calorie and training targets that fit you.</p>
+                
+                <div class="select-card selected" onclick="selectCard(this)">
+                    <div class="select-card-info"><h4>Male</h4></div>
+                    <div class="radio-circle">✓</div>
+                </div>
+                <div class="select-card" onclick="selectCard(this)">
+                    <div class="select-card-info"><h4>Female</h4></div>
+                    <div class="radio-circle"></div>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="goToScreen('screen-birthday')">Continue</button>
+        </div>
+
+        <!-- SCREEN 4: BIRTHDAY & AGE (12+ Check)[span_10](start_span)[span_10](end_span) -->
+        <div id="screen-birthday" class="screen hidden">
+            <div>
+                <div class="header-nav">
+                    <button class="back-btn" onclick="goToScreen('screen-gender')">←</button>
+                    <div class="progress-track"><div class="progress-fill" style="width: 45%;"></div></div>
+                </div>
+                <h2 class="screen-title">When's your birthday?</h2>
+                <p class="screen-subtitle">We'll use this to estimate metabolism and daily calorie needs (Must be 12+).</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px;">
+                    <select id="b-month" class="input-box" style="font-size: 16px; background: var(--surface-card); padding: 12px; border-radius: 12px; border: none;">
+                        <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option><option value="4">Apr</option>
+                        <option value="5">May</option><option value="6">Jun</option><option value="7">Jul</option><option value="8">Aug</option>
+                        <option value="9">Sep</option><option value="10" selected>Oct</option><option value="11">Nov</option><option value="12">Dec</option>
+                    </select>
+                    <select id="b-day" class="input-box" style="font-size: 16px; background: var(--surface-card); padding: 12px; border-radius: 12px; border: none;">
+                        <option value="28">28</option><option value="29">29</option><option value="30" selected>30</option><option value="31">31</option>
+                    </select>
+                    <select id="b-year" class="input-box" style="font-size: 16px; background: var(--surface-card); padding: 12px; border-radius: 12px; border: none;">
+                        <option value="2011" selected>2011</option><option value="2010">2010</option><option value="2009">2009</option><option value="2008">2008</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-primary" style="margin-top: 40px;" onclick="validateAge()">Continue</button>
+        </div>
+
+        <!-- SCREEN 5: GOAL SELECTION[span_11](start_span)[span_11](end_span) -->
+        <div id="screen-goal" class="screen hidden">
+            <div>
+                <div class="header-nav">
+                    <button class="back-btn" onclick="goToScreen('screen-birthday')">←</button>
+                    <div class="progress-track"><div class="progress-fill" style="width: 60%;"></div></div>
+                </div>
+                <h2 class="screen-title">What's your goal?</h2>
+                <p class="screen-subtitle">Select your primary transformation path.</p>
+                
+                <div class="select-card" onclick="selectCard(this)">
+                    <div class="select-card-info"><h4>Fat Loss</h4><p>Lose fat while preserving muscle</p></div>
+                    <div class="radio-circle"></div>
+                </div>
+                <div class="select-card selected" onclick="selectCard(this)">
+                    <div class="select-card-info"><h4>Muscle Gain / Bulk</h4><p>Maximize muscle and mass gain</p></div>
+                    <div class="radio-circle">✓</div>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="goToScreen('screen-coach')">Continue</button>
+        </div>
+
+        <!-- SCREEN 6: COACH PREFERENCE[span_12](start_span)[span_12](end_span) -->
+        <div id="screen-coach" class="screen hidden">
+            <div>
+                <div class="header-nav">
+                    <button class="back-btn" onclick="goToScreen('screen-goal')">←</button>
+                    <div class="progress-track"><div class="progress-fill" style="width: 75%;"></div></div>
+                </div>
+                <h2 class="screen-title">Are you already working with a coach?</h2>
+                <p class="screen-subtitle">Customize your training support suite.</p>
+                
+                <div class="select-card selected" onclick="selectCard(this)">
+                    <div class="select-card-info"><h4>No, I workout on my own</h4><p>Continue solo</p></div>
+                    <div class="radio-circle">✓</div>
+                </div>
+                <div class="select-card" onclick="selectCard(this)">
+                    <div class="select-card-info"><h4>Yes, I have a coach</h4><p>Link or refer them</p></div>
+                    <div class="radio-circle"></div>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="goToScreen('screen-auth')">Continue</button>
+        </div>
+
+        <!-- SCREEN 7: ACCOUNT CREATION[span_13](start_span)[span_13](end_span) -->
+        <div id="screen-auth" class="screen hidden">
+            <div>
+                <div class="header-nav">
+                    <button class="back-btn" onclick="goToScreen('screen-coach')">←</button>
+                    <div class="progress-track"><div class="progress-fill" style="width: 90%;"></div></div>
+                </div>
+                <h2 class="screen-title">Create your account</h2>
+                <p class="screen-subtitle">Secure your progress and sync across devices.</p>
+            </div>
+            <div>
+                <button class="btn-primary" style="background: white; color: black; margin-bottom: 12px;" onclick="goToScreen('screen-dashboard')">Continue with Google</button>
+                <button class="btn-primary" style="background: var(--surface-card); color: white; border: 1px solid var(--border-subtle);" onclick="goToScreen('screen-dashboard')">Continue with Email</button>
+            </div>
+        </div>
+
+        <!-- SCREEN 8: MAIN DASHBOARD & TABS[span_14](start_span)[span_14](end_span)[span_15](start_span)[span_15](end_span)[span_16](start_span)[span_16](end_span)[span_17](start_span)[span_17](end_span) -->
+        <div id="screen-dashboard" class="screen hidden" style="display: flex; flex-direction: column; height: 100%;">
+            <div class="dashboard-content" id="dashboard-tab-content">
+                
+                <!-- HOME TAB[span_18](start_span)[span_18](end_span)[span_19](start_span)[span_19](end_span) -->
+                <div id="tab-home" class="dash-tab-pane">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div>
+                            <h4 style="color: var(--text-muted); font-size: 11px;">WELCOME BACK</h4>
+                            <h2 id="dash-username" style="font-size: 20px; font-weight: 800;">Jonathan</h2>
+                        </div>
+                        <div style="background: var(--surface-card); padding: 6px 12px; border-radius: 20px; font-size: 11px; color: var(--accent-yellow); font-weight: 700;">PRO ★</div>
+                    </div>
+
+                    <!-- Quick Metric Pills -->
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px;">
+                        <div class="dash-card" style="padding: 10px; text-align: center;"><span style="font-size: 11px; color: var(--text-muted);">Habits</span><p style="font-size: 14px; font-weight: 700; color: var(--accent-yellow);">4/5</p></div>
+                        <div class="dash-card" style="padding: 10px; text-align: center;"><span style="font-size: 11px; color: var(--text-muted);">Water</span><p style="font-size: 14px; font-weight: 700; color: #3b82f6;">3.2L</p></div>
+                        <div class="dash-card" style="padding: 10px; text-align: center;"><span style="font-size: 11px; color: var(--text-muted);">Burn</span><p style="font-size: 14px; font-weight: 700; color: #ef4444;">181k</p></div>
+                        <div class="dash-card" style="padding: 10px; text-align: center;"><span style="font-size: 11px; color: var(--text-muted);">Steps</span><p style="font-size: 14px; font-weight: 700; color: var(--success);">4k</p></div>
+                    </div>
+
+                    <!-- Nutrition Ring Card[span_20](start_span)[span_20](end_span) -->
+                    <div class="dash-card">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <h4>Nutrition & Macros</h4>
+                            <span style="color: var(--accent-yellow); font-weight: 700;">0 / 1,950 kcal</span>
+                        </div>
+                        <div class="macro-bar" style="margin-bottom: 12px;"><div class="macro-fill" style="width: 15%;"></div></div>
+                        <div style="font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between;">
+                            <span>Protein: 69g</span><span>Carbs: 272g</span><span>Fats: 65g</span>
+                        </div>
+                    </div>
+
+                    <!-- Plans Section[span_21](start_span)[span_21](end_span) -->
+                    <div class="dash-card">
+                        <h4 style="margin-bottom: 10px;">Recommended Splits</h4>
+                        <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;">
+                            <div style="min-width: 130px; background: rgba(255,230,0,0.1); border: 1px solid var(--accent-yellow); padding: 12px; border-radius: 16px;">
+                                <strong style="font-size: 13px;">Full Body</strong>
+                                <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Beginner Split</p>
+                            </div>
+                            <div style="min-width: 130px; background: var(--surface); padding: 12px; border-radius: 16px;">
+                                <strong style="font-size: 13px;">Push Pull Legs</strong>
+                                <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">3 Day Split</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRACK / WORKOUT TAB[span_22](start_span)[span_22](end_span) -->
+                <div id="tab-track" class="dash-tab-pane hidden">
+                    <h2 class="s
